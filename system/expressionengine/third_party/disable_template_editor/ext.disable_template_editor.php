@@ -31,7 +31,7 @@ class Disable_template_editor_ext {
 	public $docs_url		= 'http://getbunch.com/';
 	public $name			= 'Disable Template Editor';
 	public $settings_exist	= 'n';
-	public $version			= '1.0';
+	public $version			= '1.0.1';
 	
 	private $EE;
 	
@@ -84,7 +84,13 @@ class Disable_template_editor_ext {
 	 */
 	public function inject_cp_js()
 	{
-		return '$(function() {' .
+		$strReturn = '';
+		
+		if ($this->extensions->last_call) {
+			$strReturn .= $this->extensions->last_call . "\n\n";
+		}
+
+		$strReturn .= '$(function() {' .
 					'$("#templateEditor input[type=\"submit\"]").hide();' .
 					'$("#templateEditor input[name=\"save_template_file\"]").parent().hide();' .
 					'$("#templateEditor #template_details > p").html("Read Only (Source Controlled) &ndash;" + $("#templateEditor #template_details > p").html());' .
@@ -96,7 +102,9 @@ class Disable_template_editor_ext {
 					'$(".templateEditorTop > h2").html("Template Management (Under Source Control)");' .
 					'$(".templateTable input[name=\"template_name\"]").attr("disabled", "disabled");' .
 					'$(".templateTable .template_manager_template_name").html($(".templateTable .template_manager_template_name").html() + " (Read Only)");' .
-				'});';
+				'});'
+
+		return $strReturn;
 		
 		
 	}
