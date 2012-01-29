@@ -102,7 +102,7 @@ class Disable_template_editor_ext {
 					'$(".templateEditorTop > h2").html("Template Management (Under Source Control)");' .
 					'$(".templateTable input[name=\"template_name\"]").attr("disabled", "disabled");' .
 					'$(".templateTable .template_manager_template_name").html($(".templateTable .template_manager_template_name").html() + " (Read Only)");' .
-				'});'
+				'});';
 
 		return $strReturn;
 		
