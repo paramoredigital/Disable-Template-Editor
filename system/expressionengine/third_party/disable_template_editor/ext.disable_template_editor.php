@@ -84,7 +84,7 @@ class Disable_template_editor_ext {
 	 */
 	public function inject_cp_js()
 	{
-		return '$(function() {' .
+		$r = '$(function() {' .
 					'$("#templateEditor input[type=\"submit\"]").hide();' .
 					'$("#templateEditor input[name=\"save_template_file\"]").parent().hide();' .
 					'$("#templateEditor #template_details > p").html("Read Only (Source Controlled) &ndash;" + $("#templateEditor #template_details > p").html());' .
@@ -97,7 +97,7 @@ class Disable_template_editor_ext {
 					'$(".templateTable input[name=\"template_name\"]").attr("disabled", "disabled");' .
 					'$(".templateTable .template_manager_template_name").html($(".templateTable .template_manager_template_name").html() + " (Read Only)");' .
 				'});';
-		
+		return $this->EE->extensions->last_call . $r;
 		
 	}
 
