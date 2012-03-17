@@ -96,7 +96,7 @@ class Disable_template_editor_ext {
 					'$("#templateEditor #template_details > p").html("Read Only (Source Controlled) &ndash;" + $("#templateEditor #template_details > p").html());' .
 					'$("#templateEditor textarea[name=\"template_data\"]").attr("readonly", "readonly");' .
 					'$("#templateGroups .newTemplate").hide();' .
-					'$("input#group_name").parent().parent().hide();' .
+					'$("label[for=\"name_of_template_group\"]").parent().parent().hide();' .
 					'$(".templateGrouping div.newTemplate:eq(1)").hide();' .
 					'$(".templateGrouping div.newTemplate:eq(0)").hide();' .
 					'$(".templateEditorTop > h2").html("Template Management (Under Source Control)");' .
