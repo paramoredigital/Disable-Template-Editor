@@ -11,7 +11,7 @@
  * @since		Version 2.0
  * @filesource
  */
- 
+
 // ------------------------------------------------------------------------
 
 /**
@@ -24,17 +24,17 @@
  * @link		http://getbunch.com/
  */
 
-class Disable_template_editor_ext {
-	
+class Disable_template_editor_ext
+{
 	public $settings 		= array();
 	public $description		= 'Disables the EE template editor for users to control templates via source control. This prevents folks from creating out of sync issues between the server and repo.';
 	public $docs_url		= 'http://getbunch.com/';
 	public $name			= 'Disable Template Editor';
 	public $settings_exist	= 'n';
 	public $version			= '1.0.1';
-	
+
 	private $EE;
-	
+
 	/**
 	 * Constructor
 	 *
@@ -44,8 +44,10 @@ class Disable_template_editor_ext {
 	{
 		$this->EE =& get_instance();
 		$this->settings = $settings;
-	}// ----------------------------------------------------------------------
-	
+	}
+
+	// ----------------------------------------------------------------------
+
 	/**
 	 * Activate Extension
 	 *
@@ -60,7 +62,7 @@ class Disable_template_editor_ext {
 	{
 		// Setup custom settings in this array.
 		$this->settings = array();
-		
+
 		$data = array(
 			'class'		=> __CLASS__,
 			'method'	=> 'inject_cp_js',
@@ -70,43 +72,35 @@ class Disable_template_editor_ext {
 			'enabled'	=> 'y'
 		);
 
-		$this->EE->db->insert('extensions', $data);			
-		
-	}	
+		$this->EE->db->insert('extensions', $data);
+	}
 
 	// ----------------------------------------------------------------------
-	
+
 	/**
-	 * inject_cp_js
+	 * Extension Hook
 	 *
-	 * @param 
-	 * @return 
+	 * Returns the functionality to the extension output hook.
+	 *
+	 * @return string
 	 */
 	public function inject_cp_js()
 	{
-		$strReturn = '';
-		
-		if ($this->extensions->last_call) {
-			$strReturn .= $this->extensions->last_call . "\n\n";
-		}
+		$str = '$(function() {' .
+			'$("#templateEditor input[type=\"submit\"]").hide();' .
+			'$("#templateEditor input[name=\"save_template_file\"]").parent().hide();' .
+			'$("#templateEditor #template_details > p").html("Read Only (Source Controlled) &ndash;" + $("#templateEditor #template_details > p").html());' .
+			'$("#templateEditor textarea[name=\"template_data\"]").attr("readonly", "readonly");' .
+			'$("#templateGroups .newTemplate").hide();' .
+			'$("label[for=\"name_of_template_group\"]").parent().parent().hide();' .
+			'$(".templateGrouping div.newTemplate:eq(1)").hide();' .
+			'$(".templateGrouping div.newTemplate:eq(0)").hide();' .
+			'$(".templateEditorTop > h2").html("Template Management (Under Source Control)");' .
+			'$(".templateTable input[name=\"template_name\"]").attr("disabled", "disabled");' .
+			'$(".templateTable .template_manager_template_name").html($(".templateTable .template_manager_template_name").html() + " (Read Only)");' .
+		'});';
 
-		$strReturn .= '$(function() {' .
-					'$("#templateEditor input[type=\"submit\"]").hide();' .
-					'$("#templateEditor input[name=\"save_template_file\"]").parent().hide();' .
-					'$("#templateEditor #template_details > p").html("Read Only (Source Controlled) &ndash;" + $("#templateEditor #template_details > p").html());' .
-					'$("#templateEditor textarea[name=\"template_data\"]").attr("readonly", "readonly");' .
-					'$("#templateGroups .newTemplate").hide();' .
-					'$("label[for=\"name_of_template_group\"]").parent().parent().hide();' .
-					'$(".templateGrouping div.newTemplate:eq(1)").hide();' .
-					'$(".templateGrouping div.newTemplate:eq(0)").hide();' .
-					'$(".templateEditorTop > h2").html("Template Management (Under Source Control)");' .
-					'$(".templateTable input[name=\"template_name\"]").attr("disabled", "disabled");' .
-					'$(".templateTable .template_manager_template_name").html($(".templateTable .template_manager_template_name").html() + " (Read Only)");' .
-				'});';
-
-		return $strReturn;
-		
-		
+		return !$this->EE->extensions->last_call ? $str : $this->EE->extensions->last_call . $str;
 	}
 
 	// ----------------------------------------------------------------------
@@ -140,8 +134,8 @@ class Disable_template_editor_ext {
 		{
 			return FALSE;
 		}
-	}	
-	
+	}
+
 	// ----------------------------------------------------------------------
 }
 
