@@ -87,15 +87,14 @@ class Disable_template_editor_ext
 	public function inject_cp_js()
 	{
 		$str = '$(function() {' .
-			'$("#templateEditor input[type=\"submit\"]").hide();' .
 			'$("#templateEditor input[name=\"save_template_file\"]").parent().hide();' .
 			'$("#templateEditor #template_details > p").html("Read Only (Source Controlled) &ndash;" + $("#templateEditor #template_details > p").html());' .
 			'$("#templateEditor textarea[name=\"template_data\"]").attr("readonly", "readonly");' .
 			'$("#templateGroups .newTemplate").hide();' .
-			'$("label[for=\"name_of_template_group\"]").parent().parent().hide();' .
-			'$(".templateGrouping div.newTemplate:eq(1)").hide();' .
-			'$(".templateGrouping div.newTemplate:eq(0)").hide();' .
+			'$(".templateGrouping div.newTemplate:nth-child(2)").hide();' .
+			'$(".templateGrouping div.newTemplate:nth-child(1)").hide();' .
 			'$(".templateEditorTop > h2").html("Template Management (Under Source Control)");' .
+			'$(".templateEditorTop").append("<div style=\'clear: both\'>All templates &amp; template groups must be created and edited via the templates folder on the filesystem.</div>");' .
 			'$(".templateTable input[name=\"template_name\"]").attr("disabled", "disabled");' .
 			'$(".templateTable .template_manager_template_name").html($(".templateTable .template_manager_template_name").html() + " (Read Only)");' .
 		'});';
