@@ -31,7 +31,7 @@ class Disable_template_editor_ext
 	public $docs_url		= 'http://getbunch.com/';
 	public $name			= 'Disable Template Editor';
 	public $settings_exist	= 'n';
-	public $version			= '1.0.1';
+	public $version			= '1.0.2';
 
 	private $EE;
 
