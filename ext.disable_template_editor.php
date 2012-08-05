@@ -97,6 +97,7 @@ class Disable_template_editor_ext
 			'$(".templateEditorTop").append("<div style=\'clear: both\'>All templates &amp; template groups must be created and edited via the templates folder on the filesystem.</div>");' .
 			'$(".templateTable input[name=\"template_name\"]").attr("disabled", "disabled");' .
 			'$(".templateTable .template_manager_template_name").html($(".templateTable .template_manager_template_name").html() + " (Read Only)");' .
+			'$(".templateTable tr td.cellRight").html("--");' .			
 		'});';
 
 		return !$this->EE->extensions->last_call ? $str : $this->EE->extensions->last_call . $str;
