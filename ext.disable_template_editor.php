@@ -27,10 +27,10 @@
 class Disable_template_editor_ext
 {
 	public $settings 		= array();
-    public $description		= 'Disables the EE template editor for users to control templates via source control. This prevents folks from creating out of sync issues between the server and repo.';
+	public $description		= 'Disables the EE template editor for users to control templates via source control. This prevents folks from creating out of sync issues between the server and repo.';
 	public $docs_url		= 'http://getbunch.com/';
 	public $name			= 'Disable Template Editor';
-	public $settings_exist	= 'n';
+	public $settings_exist		= 'n';
 	public $version			= '1.0.3';
 
 	private $EE;
@@ -86,27 +86,27 @@ class Disable_template_editor_ext
 	 */
 	public function inject_cp_js()
 	{
-        $str = ''.
-            '$(function() {' .
-            '    var $tmplEdit = $("#templateEditor");' .
-            '    var $tmplTable = $(".templateTable");' .
-            '    ' .
-            '    $tmplEdit.find("input[name=save_template_file]").parent().hide();' .
-            '    $tmplEdit.find("#template_details > p").html(function(i, old) {' .
-            '        return "Read-Only (Under Source Control) &ndash;" + old;' .
-            '    });' .
-            '    $tmplEdit.find("textarea[name=template_data]").prop("readonly", "readonly");' .
-            '    ' .
-            '    $("#templateGroups").find(".newTemplate").hide();' .
-            '    $(".templateGrouping").find("div.newTemplate").filter(":nth-child(2),:nth-child(1)").hide();' .
-            '    ' .
-            '    $(".templateEditorTop").append("<div style=\'clear: left\'>All templates and template groups must be created and edited via the templates folder on the filesystem.</div>").children("h2").html("Template Management (Under Source Control)");' .
-            '    $tmplTable.find("input[name=template_name]").prop("disabled", "disabled");' .
-            '    $tmplTable.find(".template_manager_template_name").html(function(i,old) {' .
-            '        return old + " (Read Only)";' .
-            '    });' .
-            '    $tmplTable.find("td.cellRight, th.cellRight").remove();' .
-            '});';
+		$str = ''.
+		'$(function() {' .
+		'    var $tmplEdit = $("#templateEditor");' .
+		'    var $tmplTable = $(".templateTable");' .
+		'    ' .
+		'    $tmplEdit.find("input[name=save_template_file]").parent().hide();' .
+		'    $tmplEdit.find("#template_details > p").html(function(i, old) {' .
+		'        return "Read-Only (Under Source Control) &ndash;" + old;' .
+		'    });' .
+		'    $tmplEdit.find("textarea[name=template_data]").prop("readonly", "readonly");' .
+		'    ' .
+		'    $("#templateGroups").find(".newTemplate").hide();' .
+		'    $(".templateGrouping").find("div.newTemplate").filter(":nth-child(2),:nth-child(1)").hide();' .
+		'    ' .
+		'    $(".templateEditorTop").append("<div style=\'clear: left\'>All templates and template groups must be created and edited via the templates folder on the filesystem.</div>").children("h2").html("Template Management (Under Source Control)");' .
+		'    $tmplTable.find("input[name=template_name]").prop("disabled", "disabled");' .
+		'    $tmplTable.find(".template_manager_template_name").html(function(i,old) {' .
+		'        return old + " (Read Only)";' .
+		'    });' .
+		'    $tmplTable.find("td.cellRight, th.cellRight").remove();' .
+		'});';
 
 		return !$this->EE->extensions->last_call ? $str : $this->EE->extensions->last_call . $str;
 	}
