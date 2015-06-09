@@ -31,7 +31,7 @@ class Disable_template_editor_ext
 	public $docs_url		= 'http://getbunch.com/';
 	public $name			= 'Disable Template Editor';
 	public $settings_exist	= 'n';
-	public $version			= '1.0.2';
+	public $version			= '1.0.4';
 
 	private $EE;
 
@@ -87,17 +87,14 @@ class Disable_template_editor_ext
 	public function inject_cp_js()
 	{
 		$str = '$(function() {' .
-			'$("#templateEditor input[name=\"save_template_file\"]").parent().hide();' .
-			'$("#templateEditor #template_details > p").html("Read Only (Source Controlled) &ndash;" + $("#templateEditor #template_details > p").html());' .
+			'$("#action_nav").hide();' .
+			'$("#action_nav .toggle_editor").click();' .
+			'$("#templateEditor input[name=\"update_and_return\"]").parent().hide();' .
+			'$("#templateEditor #template_details > p").html("<b>Read Only</b> (Source Controlled)");' .
 			'$("#templateEditor textarea[name=\"template_data\"]").attr("readonly", "readonly");' .
-			'$("#templateGroups .newTemplate").hide();' .
-			'$(".templateGrouping div.newTemplate:nth-child(2)").hide();' .
-			'$(".templateGrouping div.newTemplate:nth-child(1)").hide();' .
-			'$(".templateEditorTop > h2").html("Template Management (Under Source Control)");' .
-			'$(".templateEditorTop").append("<div style=\'clear: both\'>All templates &amp; template groups must be created and edited via the templates folder on the filesystem.</div>");' .
-			'$(".templateTable input[name=\"template_name\"]").attr("disabled", "disabled");' .
-			'$(".templateTable .template_manager_template_name").html($(".templateTable .template_manager_template_name").html() + " (Read Only)");' .
-			'$(".templateTable tr td.cellRight").html("--");' .			
+			'$("form .editAccordion").hide();
+			$("input[name=save_template_file]").hide();
+			$("label[for=save_template_file]").hide();' .
 		'});';
 
 		return !$this->EE->extensions->last_call ? $str : $this->EE->extensions->last_call . $str;
